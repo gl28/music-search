@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Album Search</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+
+
+        /* Reset default styles */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+         /* Global styles */
+    body {
+        background-color: #121212;
+        color: #fff;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    h1, h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* Search form styles */
+    .search-form {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 30px;
+        width: 100%;
+        max-width: 600px;
+        background-color: #222;
+        border-radius: 30px;
+        padding: 15px;
+        box-shadow: 0px 2px 5px rgba(255,255,255,0.1);
+    }
+
+    .search-input {
+        flex-grow: 1;
+        border: none;
+        outline: none;
+        padding: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #222;
+        border-radius: 30px;
+    }
+
+    .search-btn {
+        border: none;
+        outline: none;
+        padding: 10px 20px;
+        background-color: #d82b2b;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    .search-btn:hover {
+        background-color: #a61717;
+    }
+
+    /* Album list styles */
+    .album-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 800px;
+    }
+
+    .album {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        background-color: #222;
+        border-radius: 10px;
+        box-shadow: 0px 2px 5px rgba(255,255,255,0.1);
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+    .album img {
+        height: 80px;
+        width: 80px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-right: 20px;
+    }
+
+    .album-info {
+        flex-grow: 1;
+    }
+
+    .album-info h3 {
+        font-size: 24px;
+        font-weight: bold;
+        color: #fff;
+        margin-bottom: 5px;
+    }
+
+    .album-info p {
+        font-size: 16px;
+        color: #ccc;
+        margin-bottom: 10px;
+    }
+
+    .album-info a {
+        font-size: 16px;
+        color: #d82b2b;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.2s ease;
+    }
+
+    .album-info a:hover {
+        color: #a61717;
+    } 
+        </style>
+        </head>
+        <body>
+            <h1>Search for albums</h1>
+            <form class="search-form" action="/search" method="get">
+                <input class="search-input" type="text" name="query" placeholder="Enter your search query" required>
+                <button class="search-btn" type="submit">Search</button>
+            </form>
+            {% if albums %}
+            <h2>Album results:</h2>
+            <div class="album-list">
+                {% for album in albums %}
+                <div class="album">
+                    <img src="{{ album.cover_art_url }}" alt="{{ album.title }} Cover">
+                    <div class="album-info">
+                        <h3>{{ album.title }}</h3>
+                        <p>By {{ album.artist }}</p>
+                        <a href="{{ album.spotify_link }}" target="_blank">View Album &raquo;</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </body>
+        </html>
+        
