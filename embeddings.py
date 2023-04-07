@@ -11,7 +11,7 @@ openai_ef = embedding_functions.OpenAIEmbeddingFunction(
 
 client = chromadb.Client(
     Settings(chroma_db_impl="duckdb+parquet",
-            persist_directory="embeddings_data"))
+            persist_directory=os.environ["CHROMA_PERSIST_DIRECTORY"]))
 
 collection = client.get_or_create_collection(name="top_5000_reviews", embedding_function=openai_ef)
 
