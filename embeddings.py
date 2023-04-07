@@ -13,7 +13,7 @@ client = chromadb.Client(
     Settings(chroma_db_impl="duckdb+parquet",
             persist_directory="embeddings_data"))
 
-collection = client.get_collection(name="top_5000_reviews", embedding_function=openai_ef)
+collection = client.get_or_create_collection(name="top_5000_reviews", embedding_function=openai_ef)
 
 def get_albums_for_query(query):
     results = collection.query(query_texts=[query], n_results=5)
