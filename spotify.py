@@ -9,8 +9,8 @@ def get_spotify_metadata(album):
     results = sp.search(q=query, type='album', limit=1)
 
     if results['albums']['total'] > 0:
+        # TODO: add filtering to check if returned album actually matches the artist/album from Chroma
         album = results['albums']['items'][0]
-        print(album)
         album_link = album['external_urls']['spotify']
         cover_art_link = album['images'][0]['url']
         return album_link, cover_art_link
