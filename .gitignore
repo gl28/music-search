@@ -4,3 +4,4 @@
 env/
 __pycache__
 embeddings_data/
+data/
