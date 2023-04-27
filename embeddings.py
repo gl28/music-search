@@ -5,11 +5,12 @@ import numpy as np
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 EMBEDDINGS_MODEL = "text-embedding-ada-002"
+REVIEWS_DATA_PATH = os.getenv("REVIEWS_DATA_PATH")
 CHAT_GPT_FILTERING_ENABLED = False
 
-print("Loading album data from disk...")
+print(f"Loading album data from: {REVIEWS_DATA_PATH}")
 
-reviews_df = pd.read_pickle("data/pitchfork_reviews_data.pkl")
+reviews_df = pd.read_pickle(REVIEWS_DATA_PATH)
 
 print("Finished loading")
 print(reviews_df.info())
