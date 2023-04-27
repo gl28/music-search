@@ -9,11 +9,19 @@ openai_ef = embedding_functions.OpenAIEmbeddingFunction(
     api_key=OPENAI_API_KEY,
     model_name="text-embedding-ada-002")
 
+CHROMA_PERSIST_DIR = os.environ["CHROMA_PERSIST_DIRECTORY"]
+CHROMA_COLLECTION = os.environ["CHROMA_COLLECTION"]
+print(f"Starting up Chroma client with persist_directory={CHROMA_PERSIST_DIR}")
+
 client = chromadb.Client(
     Settings(chroma_db_impl="duckdb+parquet",
-            persist_directory=os.environ["CHROMA_PERSIST_DIRECTORY"]))
+            persist_directory=CHROMA_PERSIST_DIR))
 
-collection = client.get_or_create_collection(name=os.environ["CHROMA_COLLECTION"], embedding_function=openai_ef)
+print(f"Chroma collection={CHROMA_COLLECTION}")
+
+collection = client.get_collection(name=CHROMA_COLLECTION, embedding_function=openai_ef)
+print(collection.peek())
+print(len(collection))
 
 def get_albums_for_query(query):
     results = collection.query(query_texts=[query], n_results=5)

@@ -14,6 +14,7 @@ def search():
     albums = get_albums_for_query(query)
     
     for album in albums:
+       # TODO: cache spotify metadata
        link, art = get_spotify_metadata(album)
        album["spotify_link"] = link
        album["cover_art_url"] = art
